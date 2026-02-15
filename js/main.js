@@ -89,9 +89,41 @@ playButtons.forEach(btn => {
 });
 
 function updateIcon(btn, iconName) {
-    btn.innerHTML = `<i data-lucide="${iconName}" class="fill-current ml-1 w-6 h-6"></i>`;
+    const marginClass = iconName === 'play' ? 'ml-1' : '';
+    btn.innerHTML = `<i data-lucide="${iconName}" class="fill-current ${marginClass} w-6 h-6"></i>`;
     lucide.createIcons({ root: btn });
 }
+
+// Format time as mm:ss
+function formatTime(seconds) {
+    const m = Math.floor(seconds / 60);
+    const s = Math.floor(seconds % 60);
+    return `${m}:${s < 10 ? '0' : ''}${s}`;
+}
+
+// Fetch and display audio duration
+function initAudioDurations() {
+    document.querySelectorAll('.play-btn').forEach(btn => {
+        const audioSrc = btn.dataset.audio;
+        const card = btn.closest('.player-card');
+        const durationDisplay = card.querySelector('[data-duration-target]');
+        
+        if (!durationDisplay) return;
+
+        const audio = new Audio(audioSrc);
+        audio.addEventListener('loadedmetadata', () => {
+            durationDisplay.textContent = `• ${formatTime(audio.duration)}`;
+        });
+        
+        // Fallback if metadata fails to load quickly
+        audio.addEventListener('error', () => {
+            durationDisplay.textContent = `• --:--`;
+        });
+    });
+}
+
+// Initialize durations on load
+window.addEventListener('DOMContentLoaded', initAudioDurations);
 
 // ==========================================
 // 🌊 INTERACTIVE SOUNDWAVE CANVAS
