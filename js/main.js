@@ -143,9 +143,9 @@ let currentEnergy = 0;
 const config = {
     waveCount: 3,
     baseAmplitude: 20,
-    energyMultiplier: 5,   // How much mouse speed adds to energy
-    energyDecay: 0.96,     // How fast energy fades (0-1)
-    energySmoothing: 0.1,  // How smooth energy attack is
+    energyMultiplier: 2.5, // Reduced sensitivity
+    energyDecay: 0.98,     // Slower decay for smoother trails
+    energySmoothing: 0.05, // Slower attack to prevent jitter
     speed: 0.005,
     colors: ['rgba(255, 255, 255, 0.3)', 'rgba(251, 146, 60, 0.3)', 'rgba(168, 85, 247, 0.3)']
 };
