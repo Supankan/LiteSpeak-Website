@@ -163,11 +163,11 @@ class Wave {
         ctx.strokeStyle = this.color;
 
         // Amplitude varies with energy
-        const amplitude = config.baseAmplitude + (currentEnergy * 50);
+        const amplitude = config.baseAmplitude + (currentEnergy * 40);
 
         // Frequency adds "jitter" with energy
         const baseFreq = 0.002;
-        const jitter = currentEnergy * 0.01;
+        const jitter = currentEnergy * 0.005;
 
         for (let x = 0; x < width; x++) {
             // Complex wave function: Base sine + Energy noise
