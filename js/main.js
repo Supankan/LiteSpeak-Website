@@ -142,11 +142,11 @@ let currentEnergy = 0;
 
 const config = {
     waveCount: 3,
-    baseAmplitude: 20,
-    energyMultiplier: 2.0, // Harder to max out
-    energyDecay: 0.98,     // Slower decay for smoother trails
-    energySmoothing: 0.02, // Much slower attack to prevent instant jumps
-    speed: 0.005,
+    baseAmplitude: 15,     // Very subtle idle state
+    energyMultiplier: 0.3, // Low sensitivity to mouse
+    energyDecay: 0.95,     // Fades faster to prevent chaos build-up
+    energySmoothing: 0.01, // Very slow/organic reaction
+    speed: 0.002,          // Slow idle movement
     colors: ['rgba(255, 255, 255, 0.3)', 'rgba(251, 146, 60, 0.3)', 'rgba(168, 85, 247, 0.3)']
 };
 
@@ -162,12 +162,12 @@ class Wave {
         ctx.lineWidth = 2;
         ctx.strokeStyle = this.color;
 
-        // Amplitude varies with energy
-        const amplitude = config.baseAmplitude + (currentEnergy * 40);
+        // Amplitude varies with energy (capped influence)
+        const amplitude = config.baseAmplitude + (currentEnergy * 15);
 
-        // Frequency adds "jitter" with energy
+        // Frequency adds "jitter" with energy (Micro-jitter only)
         const baseFreq = 0.002;
-        const jitter = currentEnergy * 0.005;
+        const jitter = currentEnergy * 0.002;
 
         for (let x = 0; x < width; x++) {
             // Complex wave function: Base sine + Energy noise
